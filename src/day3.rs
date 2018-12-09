@@ -1,4 +1,5 @@
-use nom::{digit, space0, types::CompleteStr};
+use nom::*;
+use nom::types::CompleteStr;
 use std::str::FromStr;
 
 #[derive(Debug, PartialEq)]

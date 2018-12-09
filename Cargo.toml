@@ -3,5 +3,9 @@ name = "adventofcode2018"
 version = "0.1.0"
 authors = ["Tyler Hawkes <tyler.hawkes@vivint.com>"]
 publish = false
+edition = "2018"
 
 [dependencies]
+strsim = "*"
+nom = "*"
+chrono = "*"

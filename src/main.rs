@@ -1,8 +1,17 @@
-mod util;
+extern crate strsim;
+#[macro_use]
+extern crate nom;
+extern crate chrono;
+
 mod day1;
 mod day2;
+mod day3;
+mod day4;
+mod util;
 
 fn main() {
-    day1::compute();
-    day2::compute();
+  day1::compute(&util::file_lines("inputs/day1.txt"));
+  day2::compute(&util::file_lines("inputs/day2.txt"));
+  day3::compute(&util::file_lines("inputs/day3.txt"));
+  day4::compute(&util::file_lines("inputs/day4.txt"));
 }

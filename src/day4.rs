@@ -1,7 +1,7 @@
+use std::collections::HashMap;
 use std::fmt::Display;
 use std::fmt::Error;
 use std::fmt::Formatter;
-use std::collections::HashMap;
 
 struct Observation {
   guard_id: u16,
@@ -90,13 +90,18 @@ pub fn compute(input: &[String]) {
   let mut max_asleep_on_minute = 0;
   let mut max_asleep_minute: u64 = 0;
   for minute in 0..60 {
-    let total_asleep: u64 = v.iter().map(|v|v[minute]).sum();
+    let total_asleep: u64 = v.iter().map(|v| v[minute]).sum();
     if total_asleep > max_asleep_on_minute {
       max_asleep_minute = minute as u64;
       max_asleep_on_minute = total_asleep;
     }
   }
-  println!("Guard {} was asleep the most on minute {} for a hash of {}", max_id, max_asleep_minute, max_id as u64 * max_asleep_minute);
+  println!(
+    "Guard {} was asleep the most on minute {} for a hash of {}",
+    max_id,
+    max_asleep_minute,
+    max_id as u64 * max_asleep_minute
+  );
 
   //part2
   let mut max_guard = 0;
@@ -104,7 +109,7 @@ pub fn compute(input: &[String]) {
   let mut max_asleep = 0;
   for minute in 0..60 {
     for (guard, days) in m.iter() {
-      let asleep_freq: u64 = days.iter().map(|f|f[minute]).sum();
+      let asleep_freq: u64 = days.iter().map(|f| f[minute]).sum();
       if asleep_freq > max_asleep {
         max_guard = *guard;
         max_minute = minute;
@@ -113,5 +118,11 @@ pub fn compute(input: &[String]) {
     }
   }
 
-  println!("Guard {} was most frequently asleep on minute {} ({} times) for a hash of {}", max_guard, max_minute, max_asleep, max_minute * max_guard as usize)
+  println!(
+    "Guard {} was most frequently asleep on minute {} ({} times) for a hash of {}",
+    max_guard,
+    max_minute,
+    max_asleep,
+    max_minute * max_guard as usize
+  )
 }

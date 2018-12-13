@@ -1,4 +1,3 @@
-
 pub fn compute(input: &[String]) {
   let mut s = input.first().unwrap().clone();
   //println!("{}", &s);
@@ -25,8 +24,8 @@ fn react(s: &mut String) -> Option<()> {
   let mut p = '-';
   for (i, c) in s.chars().enumerate() {
     if c.to_ascii_uppercase() == p.to_ascii_uppercase() && c != p {
-      s.remove(i-1);
-      s.remove(i-1);
+      s.remove(i - 1);
+      s.remove(i - 1);
       //println!("{}", s);
       return Some(());
     }

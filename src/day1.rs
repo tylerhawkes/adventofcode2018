@@ -12,7 +12,7 @@ pub fn compute(input: &[String]) {
 fn compute_duplicate(v: &[i64]) {
   let mut set = ::std::collections::HashSet::<i64>::new();
   let mut total = 0;
-  for _j in 1..1000  {
+  for _j in 1..1000 {
     for i in v {
       total += i;
       if set.contains(&total) {

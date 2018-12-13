@@ -1,5 +1,5 @@
-use nom::*;
 use nom::types::CompleteStr;
+use nom::*;
 use std::str::FromStr;
 
 #[derive(Debug, PartialEq)]
@@ -41,8 +41,8 @@ impl Claim {
 }
 
 struct Fabric {
-//  width: usize,
-//  height: usize,
+  //  width: usize,
+  //  height: usize,
   // Outer vec is columns, inner is rows, like x and y
   square_inches: Vec<Vec<u8>>,
 }
@@ -54,9 +54,7 @@ impl Fabric {
       let y = vec![0u8; height];
       x.push(y);
     }
-    Fabric {
-      square_inches: x,
-    }
+    Fabric { square_inches: x }
   }
 
   fn mark_claim(&mut self, claim: &Claim) {

@@ -1,4 +1,3 @@
-
 use core::iter::Iterator;
 
 struct Node {
@@ -7,15 +6,15 @@ struct Node {
 }
 
 impl Node {
-  fn new(numbers: &mut Iterator<Item=&usize>) -> Node {
+  fn new(numbers: &mut Iterator<Item = &usize>) -> Node {
     let node_count = *numbers.next().expect("Should have been able to read node_count");
     let metadata_count = *numbers.next().expect("Should have been able to read metadata_count");
-//    println!("node_count: {}, metadata_count: {}", node_count, metadata_count);
+    //    println!("node_count: {}, metadata_count: {}", node_count, metadata_count);
     if metadata_count < 1 {
       panic!("Metadata count < 1.");
     }
     let mut child_nodes = Vec::with_capacity(node_count);
-    for _ in 0 .. node_count {
+    for _ in 0..node_count {
       let node = Node::new(numbers);
       child_nodes.push(node);
     }
@@ -23,12 +22,14 @@ impl Node {
     for _ in 0..metadata_count {
       metadata_entries.push(*numbers.next().expect("Should have been able to read metadata"));
     }
-    Node{child_nodes, metadata_entries}
+    Node {
+      child_nodes,
+      metadata_entries,
+    }
   }
 
   fn total_metadata(&self) -> usize {
-    self.child_nodes.iter().map(|n|n.total_metadata()).sum::<usize>() +
-      self.metadata_entries.iter().sum::<usize>()
+    self.child_nodes.iter().map(|n| n.total_metadata()).sum::<usize>() + self.metadata_entries.iter().sum::<usize>()
   }
 
   fn value(&self) -> usize {
@@ -49,7 +50,7 @@ impl Node {
 }
 
 pub fn compute(input: &[String]) {
-  let numbers: Vec<usize> = input.first().unwrap().split_whitespace().map(|s|s.parse().unwrap()).collect();
+  let numbers: Vec<usize> = input.first().unwrap().split_whitespace().map(|s| s.parse().unwrap()).collect();
   println!("{:?}", numbers.len());
   let iter = &mut numbers.iter();
   let node = Node::new(iter);

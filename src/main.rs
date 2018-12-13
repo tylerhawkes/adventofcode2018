@@ -6,6 +6,7 @@ mod day4;
 mod day5;
 mod day6;
 mod day7;
+mod day8;
 mod util;
 
 fn main() {
@@ -16,4 +17,5 @@ fn main() {
   day5::compute(&util::file_lines("inputs/day5.txt"));
   day6::compute(&util::file_lines("inputs/day6.txt"));
   day7::compute(&util::file_lines("inputs/day7.txt"));
+  day8::compute(&util::file_lines("inputs/day8.txt"));
 }

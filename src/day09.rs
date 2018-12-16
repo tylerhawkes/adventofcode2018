@@ -1,4 +1,4 @@
-use crate::day9::double::*;
+use self::double::*;
 use std::fmt::Debug;
 use std::fmt::{Display, Error, Formatter};
 
@@ -46,15 +46,15 @@ impl Marble {
 }
 
 pub fn compute(input: &[String]) {
-//    let mut success = vec![];
-//    success.push(run_game(10, 1618) == 8317);
-//    success.push(run_game(13, 7999) == 146373);
-//    success.push(run_game(17, 1104) == 2764);
-//    success.push(run_game(21, 6111) == 54718);
-//    success.push(run_game(30, 5807) == 37305);
-//    println!("{:?}", success);
+  //    let mut success = vec![];
+  //    success.push(run_game(10, 1618) == 8317);
+  //    success.push(run_game(13, 7999) == 146373);
+  //    success.push(run_game(17, 1104) == 2764);
+  //    success.push(run_game(21, 6111) == 54718);
+  //    success.push(run_game(30, 5807) == 37305);
+  //    println!("{:?}", success);
   run_game(418, 70769); //402398
-  run_game(418, 70769*100); //3426843186
+  run_game(418, 70769 * 100); //3426843186
 }
 
 struct Circle {
@@ -73,10 +73,9 @@ impl Circle {
       let removal = self.current_index.clone();
       self.current_index = self.circle.forward(self.current_index);
       let removed_marble = self.circle.remove(removal);
-      let score_increase = marble.id
-        + removed_marble.id;
-//      println!("score_increase: {}", score_increase);
-        player.score += score_increase;
+      let score_increase = marble.id + removed_marble.id;
+      //      println!("score_increase: {}", score_increase);
+      player.score += score_increase;
     } else {
       self.current_index = self.circle.forward(self.current_index);
       self.current_index = self.circle.insert_after(self.current_index, marble.clone());
@@ -92,6 +91,7 @@ pub fn run_game(player_count: usize, last_marble: u32) -> u32 {
     players.push(Player { score: 0 });
   }
   let mut circle_list = double::List::new();
+  circle_list.reserve(last_marble as usize + 1);
   //let marbles = vec![0,  2,  1].into_iter().map(|id|Marble{id}).for_each(|m|circle_list.push_back(m));
   circle_list.push_back(Marble { id: 0 });
   let current = circle_list.push_back(Marble { id: 2 });
@@ -108,9 +108,9 @@ pub fn run_game(player_count: usize, last_marble: u32) -> u32 {
   //  let mut score_increases = vec![];
   for i in current_marble.id..=last_marble {
     let marble = current_marble.next();
-    if marble.id % 10000 == 0 {
-      println!("On id {}", marble.id);
-    }
+    //  if marble.id % 10000 == 0 {
+    //    println!("On id {}", marble.id);
+    //  }
     circle.place_marble(marble, players.next());
   }
   //  score_increases.sort();

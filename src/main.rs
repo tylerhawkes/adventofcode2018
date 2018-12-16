@@ -1,22 +1,22 @@
-//mod day1;
-//mod day2;
-//mod day3;
-//mod day4;
-//mod day5;
-//mod day6;
-//mod day7;
-//mod day8;
-mod day9;
+//mod day01;
+//mod day02;
+//mod day03;
+//mod day04;
+//mod day05;
+//mod day06;
+//mod day07;
+//mod day08;
+mod day09;
 mod util;
 
 fn main() {
-//  day1::compute(&util::file_lines("inputs/day1.txt"));
-//  day2::compute(&util::file_lines("inputs/day2.txt"));
-//  day3::compute(&util::file_lines("inputs/day3.txt"));
-//  day4::compute(&util::file_lines("inputs/day4.txt"));
-//  day5::compute(&util::file_lines("inputs/day5.txt"));
-//  day6::compute(&util::file_lines("inputs/day6.txt"));
-//  day7::compute(&util::file_lines("inputs/day7.txt"));
-//  day8::compute(&util::file_lines("inputs/day8.txt"));
-  day9::compute(&util::file_lines("inputs/day9.txt"));
+  //  day01::compute(&util::file_lines("inputs/day01.txt"));
+  //  day02::compute(&util::file_lines("inputs/day02.txt"));
+  //  day03::compute(&util::file_lines("inputs/day03.txt"));
+  //  day04::compute(&util::file_lines("inputs/day04.txt"));
+  //  day05::compute(&util::file_lines("inputs/day05.txt"));
+  //  day06::compute(&util::file_lines("inputs/day06.txt"));
+  //  day07::compute(&util::file_lines("inputs/day07.txt"));
+  //  day08::compute(&util::file_lines("inputs/day08.txt"));
+  day09::compute(&util::file_lines("inputs/day09.txt"));
 }

@@ -23,20 +23,33 @@ pub fn compute(input: &[String]) {
   let mut s = initial_state.clone();
   let mut prepends = maybe_prepend(&mut s);
   maybe_postpend(&mut s);
-  for i in 0..20 {
-    if i %10000 = 0 {
+  let mut last_totals = vec![];
+  let mut total_diff = 0;
+  for i in 0..2000 {
+    if i % 100 == 0 {
       print_state(&s, i);
     }
     prepends += compute_generation(&states, &mut s);
-  }
-  print_state(&s, 20);
-  let mut sum = 0;
-  for (i, b) in s.iter().enumerate() {
-    if *b {
-      sum += i as isize - prepends;
+    let mut sum = 0;
+    for (i, b) in s.iter().enumerate() {
+      if *b {
+        sum += i as isize - prepends;
+      }
+    }
+    let diff = sum - total_diff;
+    last_totals.push(diff);
+    total_diff = sum;
+    if i == 19 {
+      println!("Total of plant indexes: {}", sum); // 2542
+    }
+
+    let last_ten: isize = last_totals.iter().rev().take(10).sum();
+    if last_ten == diff * 10 {
+      println!("Total after 50,000,000,000 iterations is {}", sum + (50_000_000_000- i as isize - 1) * diff);
+      //2550000000883
+      break;
     }
   }
-  println!("Total of plant indexes: {}", sum); // 2542
 }
 
 fn print_state(s: &[bool], iter: usize) {
@@ -71,7 +84,7 @@ fn maybe_prepend(s: &mut Vec<bool>) -> isize {
 
 fn maybe_postpend(s: &mut Vec<bool>) {
   let len = s.len();
-  if s[len-5] || s[len-4] || s[len - 3] || s[len-2] || s[len-1]{
+  if s[len - 5] || s[len - 4] || s[len - 3] || s[len - 2] || s[len - 1] {
     s.push(false);
     maybe_postpend(s);
   }

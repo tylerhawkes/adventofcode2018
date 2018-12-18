@@ -16,12 +16,13 @@ impl Map {
   }
 }
 
+#[derive(Debug)]
 struct Carts {
   carts: Vec<Cart>,
 }
 
 impl Carts {
-  fn tick(&mut self, map: &Map) -> Option<Point> {
+  fn sort(&mut self) {
     self.carts.sort_by(|a, b| {
       let ordering = a.point.x.cmp(&b.point.x);
       if let Ordering::Equal = ordering {
@@ -29,14 +30,46 @@ impl Carts {
       }
       ordering
     });
+  }
+
+  fn tick_part_one(&mut self, map: &Map) -> Option<Point> {
+    self.sort();
     for i in 0..self.carts.len() {
       self.carts[i].tick(map);
-      let crashed: Vec<Point> = self.carts.iter().filter(|c|c.point == self.carts[i].point).map(|c|c.point).collect();
+      let crashed: Vec<Point> = self.carts.iter().filter(|c| c.point == self.carts[i].point).map(|c| c.point).collect();
       if crashed.len() > 1 {
         return Some(self.carts[i].point);
       }
     }
     None
+  }
+
+  fn tick_part_two(&mut self, map: &Map) -> usize {
+    self.sort();
+    let mut i = 0;
+    while i < self.carts.len() {
+      self.carts[i].tick(map);
+      let removals: Vec<usize> = self.carts.iter().enumerate().filter(|(_j,c)| c.point == self.carts[i].point && c.id != self.carts[i].id).map(|(j, _c)|j).collect();
+      if !removals.is_empty() {
+        if removals.len() > 1 {
+          panic!("More than 2 carts in a crash!");
+        }
+        let other = *removals.first().unwrap();
+        let mut removed = vec![];
+        if other < i {
+          removed.push(self.carts.remove(i));
+          removed.push(self.carts.remove(other));
+          i -= 1;
+        } else {
+          removed.push(self.carts.remove(other));
+          removed.push(self.carts.remove(i));
+        }
+//        removed.iter().for_each(|c| println!("Removed cart: {:?}", c));
+      } else {
+        i += 1;
+      }
+    }
+    self.carts.len()
   }
 }
 
@@ -68,7 +101,7 @@ impl Track {
           Direction::East => Direction::East,
           _ => panic!("Invalid horizontal direction!"),
         }
-      },
+      }
       Track::Intersection => {
         match (direction, turn) {
           (Direction::North, Turn::Left) => Direction::East,
@@ -186,40 +219,53 @@ pub fn compute(input: &[String]) {
         '+' => Track::Intersection,
         '^' => {
           cart_id += 1;
-          carts.push(Cart::new(cart_id,x, y, Direction::North));
+          carts.push(Cart::new(cart_id, x, y, Direction::North));
           Track::Vertical
-        },
-        'v' => {
+        }
+        'v'|'V' => {
           cart_id += 1;
           carts.push(Cart::new(cart_id, x, y, Direction::South));
           Track::Vertical
-        },
+        }
         '<' => {
           cart_id += 1;
           carts.push(Cart::new(cart_id, x, y, Direction::East));
           Track::Horizontal
-        },
+        }
         '>' => {
           cart_id += 1;
           carts.push(Cart::new(cart_id, x, y, Direction::West));
           Track::Horizontal
-        },
+        }
         l => panic!(format!("Unknown character '{}'", l)),
       };
       tracks[y][x] = track;
     }
   }
-  let map = Map{tracks};
-  let mut carts = Carts{carts};
+  let map = Map { tracks };
+  let carts_part_two = carts.clone();
+  let mut carts = Carts { carts };
   for i in 0..1000 {
     if i % 100 == 0 {
-      println!("On iteration {}", i);
+//      println!("On iteration {}", i);
     }
-    let crashed = carts.tick(&map);
+    let crashed = carts.tick_part_one(&map);
     if let Some(p) = crashed {
       println!("Crashed at {:?}", p);
-
+      break;
     }
-    carts.carts.iter().filter(|c|c.id == 1).for_each(|c|println!("{:?}", c));
+//    carts.carts.iter().filter(|c| c.id == 1).for_each(|c| println!("{:?}", c));
   }
+  let mut carts = Carts { carts: carts_part_two };
+  let mut cart_count = usize::max_value();
+  let mut iter = 0;
+  while cart_count > 1 {
+    if iter % 100 == 0 {
+//      println!("On iter {}", iter);
+    }
+    cart_count = carts.tick_part_two(&map);
+    iter += 1;
+  }
+  println!("Last cart at {:?}", carts.carts[0].point);
+  println!("Carts: {:?}", carts);
 }

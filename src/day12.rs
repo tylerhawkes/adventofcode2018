@@ -45,7 +45,10 @@ pub fn compute(input: &[String]) {
 
     let last_ten: isize = last_totals.iter().rev().take(10).sum();
     if last_ten == diff * 10 {
-      println!("Total after 50,000,000,000 iterations is {}", sum + (50_000_000_000- i as isize - 1) * diff);
+      println!(
+        "Total after 50,000,000,000 iterations is {}",
+        sum + (50_000_000_000 - i as isize - 1) * diff
+      );
       //2550000000883
       break;
     }

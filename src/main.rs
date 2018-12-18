@@ -9,7 +9,8 @@
 //mod day09;
 //mod day10;
 //mod day11;
-mod day12;
+//mod day12;
+mod day13;
 mod util;
 
 fn main() {
@@ -24,5 +25,6 @@ fn main() {
   //  day09::compute(&util::file_lines("inputs/day09.txt"));
   //  day10::compute(&util::file_lines("inputs/day10.txt"));
   //  day11::compute();
-  day12::compute(&util::file_lines("inputs/day12.txt"));
+  //  day12::compute(&util::file_lines("inputs/day12.txt"));
+  day13::compute(&util::file_lines("inputs/day13.txt"));
 }

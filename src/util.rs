@@ -13,6 +13,8 @@ pub fn file_lines(file: &str) -> Vec<String> {
 pub fn file_string(file: &str) -> String {
   let mut ret = String::new();
   let mut input = File::open(file).unwrap_or_else(|_| panic!(format!("Unable to open file {}", file)));
-  let input = input.read_to_string(&mut ret).unwrap_or_else(|_|panic!("Unable to read to string!"));
+  let input = input
+    .read_to_string(&mut ret)
+    .unwrap_or_else(|_| panic!("Unable to read to string!"));
   ret
 }

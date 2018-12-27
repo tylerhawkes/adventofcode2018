@@ -85,6 +85,7 @@ impl Acre {
     let mut acres = Vec::with_capacity(8);
     let x = self.x as isize;
     let y = self.y as isize;
+    // TODO try using wrapping_sub functions here to simplify filtering later
     acres.push((x-1, y-1));
     acres.push((x  , y-1));
     acres.push((x+1, y-1));
